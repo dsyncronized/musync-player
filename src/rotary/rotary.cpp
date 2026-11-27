@@ -1,3 +1,7 @@
+/* Credit goes to:
+    MoThunderz for the rotary encoder implementation
+*/
+
 #include "rotary.h"
 #include "config/config.h"
 #include <Arduino.h>
@@ -9,16 +13,19 @@ static unsigned long _pauseLength = 25000UL;
 static int _fastIncrement = 4;
 
 volatile int counter = 0;
+volatile bool buttonPressed = 0;
 
 void initializeRotaryEncoder() {
   pinMode(encoder0PinA, INPUT_PULLUP);
   pinMode(encoder0PinB, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(encoder0PinA), read_encoder, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(encoder0PinB), read_encoder, CHANGE);
-  pinMode(encoder0Switch, INPUT);
+  attachInterrupt(digitalPinToInterrupt(encoder0PinA), readEncoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoder0PinB), readEncoder, CHANGE);
+
+  pinMode(encoder0Switch, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(encoder0Switch), readSwitch, CHANGE);
 }
 
-void read_encoder() {
+void readEncoder() {
   static uint8_t old_AB = 3;
   static int8_t encval = 0;
   static const int8_t enc_states[] = {0,  -1, 1, 0, 1, 0, 0,  -1,
@@ -49,4 +56,9 @@ void read_encoder() {
     counter = counter + changevalue;
     encval = 0;
   }
+}
+
+void readSwitch() {
+  buttonPressed = !digitalRead(encoder0Switch);
+  Serial.println(buttonPressed);
 }
