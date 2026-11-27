@@ -1,11 +1,10 @@
-/* Credit goes to:
-    MoThunderz for the rotary encoder implementation
-*/
-
+#include "interface/menu/menu.h"
 #include "oled/oled.h"
 #include "rotary/rotary.h"
 #include <Adafruit_GFX.h>
 #include <Arduino.h>
+
+int layer = 0;
 
 void setup() {
   initializeOLED();
@@ -13,6 +12,9 @@ void setup() {
 
   Serial.begin(115200);
   Serial.println("start");
+
+  display.println("initialized");
+  display.display();
 }
 
 void loop() {
@@ -23,5 +25,14 @@ void loop() {
     lastCounter = counter;
   }
 
-  display.display();
+  const char *menu_a[3] = {
+      "Settings",
+      "wowie",
+      "wowie",
+  };
+
+  if (layer == 0 && buttonPressed == 1) {
+    layer = 1;
+    printArray(menu_a, 2);
+  }
 }
