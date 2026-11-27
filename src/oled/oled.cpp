@@ -1,4 +1,4 @@
-#include "oled/oled.h"
+#include "oled.h"
 #include "config/config.h"
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>

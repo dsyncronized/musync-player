@@ -1,12 +1,12 @@
 #include "rotary.h"
-#include "../config/config.h"
+#include "config/config.h"
 #include <Arduino.h>
 #include <stdint.h>
 
-unsigned long _lastIncReadTime = micros();
-unsigned long _lastDecReadTime = micros();
-unsigned long _pauseLength = 25000UL;
-int _fastIncrement = 4;
+static unsigned long _lastIncReadTime = micros();
+static unsigned long _lastDecReadTime = micros();
+static unsigned long _pauseLength = 25000UL;
+static int _fastIncrement = 4;
 
 volatile int counter = 0;
 
