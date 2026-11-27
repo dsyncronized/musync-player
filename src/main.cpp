@@ -2,8 +2,8 @@
     MoThunderz for the rotary encoder implementation
 */
 
-#include "input/input.h"
 #include "oled/oled.h"
+#include "rotary/rotary.h"
 #include <Adafruit_GFX.h>
 #include <Arduino.h>
 

@@ -1,4 +1,4 @@
-#include "input.h"
+#include "rotary.h"
 #include "../config/config.h"
 #include <Arduino.h>
 #include <stdint.h>
